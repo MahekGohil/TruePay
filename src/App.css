@@ -1,0 +1,147 @@
+/* General Reset */
+body {
+  margin: 0;
+  font-family: 'Arial', sans-serif;
+  background: url('/background.jpg') no-repeat center center fixed;
+  background-size: cover;
+  color: #333;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* App Container */
+.App {
+  text-align: center;
+}
+
+.App-header {
+  background-color: rgba(40, 44, 52, 0.85);
+  padding: 2rem;
+  border-radius: 10px;
+  min-height: 70vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  color: white;
+  backdrop-filter: blur(10px);
+}
+
+.App-header h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.App-link {
+  color: #61dafb;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 1.2rem;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  transition: all 0.3s ease-in-out;
+}
+
+.App-link:hover {
+  color: white;
+  background: #61dafb;
+}
+
+/* Footer */
+footer {
+  margin-top: 20px;
+  padding: 1rem 0;
+  text-align: center;
+  color: white;
+  background-color: #282c34;
+  font-size: 0.9rem;
+}
+
+/* Form Styles */
+.form-container {
+  width: 100%;
+  max-width: 400px;
+  padding: 2rem;
+  margin: auto;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 10px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+.form-container h2 {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+input {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+  box-sizing: border-box;
+  transition: all 0.3s ease;
+}
+
+input:hover {
+  border-color: #007bff;
+  box-shadow: 0 0 3px rgba(0, 123, 255, 0.3);
+}
+
+input:focus {
+  outline: 2px solid #61dafb;
+  box-shadow: 0 0 5px rgba(97, 218, 251, 0.5);
+}
+
+/* Button Styles */
+button {
+  width: 100%;
+  padding: 12px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s;
+}
+
+button:hover {
+  background-color: #0056b3;
+  transform: scale(1.02);
+}
+
+/* Link Styles */
+p {
+  margin-top: 1rem;
+  font-size: 0.95rem;
+  color: #555;
+}
+
+p a {
+  color: #007bff;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+p a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .form-container {
+    width: 90%;
+    padding: 1.5rem;
+  }
+
+  .App-header {
+    padding: 1rem;
+  }
+}
