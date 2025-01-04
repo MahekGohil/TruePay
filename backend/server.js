@@ -1,45 +1,47 @@
-// Import necessary modules
-require('dotenv').config();  // Load environment variables from .env
+require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const userRoutes = require('./routes/auth');  // Assuming you have auth routes
-const transactionRoutes = require('./routes/transaction');  // Assuming you have transaction routes
+const helmet = require('helmet');
+const morgan = require('morgan');
+const authRoutes = require('./routes/auth');
+const transactionRoutes = require('./routes/transaction');
 
-// Initialize express app
 const app = express();
 
 // Middleware
-app.use(express.json());  // Parse incoming JSON requests
-app.use(cors());  // Enable Cross-Origin Resource Sharing (CORS)
+app.use(cors({
+  origin: process.env.NODE_ENV === 'production' ? 'https://TruePay.com' : 'http://localhost:3000',
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  credentials: true,
+}));
+app.use(helmet());
+app.use(morgan('dev'));
+app.use(express.json());
 
-// MongoDB connection
-mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => console.log('MongoDB connected'))
-  .catch((err) => console.log('MongoDB connection error:', err));
+// Routes
+app.use('/api/auth', authRoutes);
+app.use('/api/transaction', transactionRoutes);
 
-// Basic route to check if server is running
-app.get('/', (req, res) => {
-  res.send('Server is up and running');
-});
-
-// Use routes for authentication and transactions
-app.use('/api/auth', userRoutes);  // Authentication routes
-app.use('/api/transactions', transactionRoutes);  // Transaction routes
-
-// Error handling middleware (for non-existent routes)
+// 404 route handling
 app.use((req, res, next) => {
   res.status(404).json({ message: 'Route not found' });
 });
 
-// Error handling for general server issues
+// Global error handling middleware
 app.use((err, req, res, next) => {
-  console.error(err.stack);  // Log the error stack for debugging
-  res.status(500).json({ message: 'Something went wrong, please try again later' });
+  console.error(err.stack);
+  res.status(500).json({ message: 'An internal server error occurred' });
 });
 
-// Start the server
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+// MongoDB connection
+mongoose
+  .connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => {
+    console.log('Connected to MongoDB');
+    app.listen(5000, () => console.log('Server running on http://localhost:5000'));
+  })
+  .catch((error) => {
+    console.error('Failed to connect to MongoDB', error);
+    process.exit(1);
+  });

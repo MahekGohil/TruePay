@@ -9,7 +9,7 @@ function authenticateToken(req, res, next) {
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    req.userId = decoded.userId;
+    req.userId = decoded.id; // Ensure `id` matches the payload structure
     next();
   } catch (err) {
     res.status(400).send('Invalid token');
